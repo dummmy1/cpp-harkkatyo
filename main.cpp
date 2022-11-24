@@ -3,56 +3,64 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iterator>
 
 
 using namespace std;
 
-void varaaHuone(int huoneNum, bool varatutHuoneet[]) {
-	int hinta = 100, yoMaara;
+void varaaHuone(int huoneNum, vector<bool> huoneita) {
+	int hinta = rand() % 20 + 80, yoMaara;
 
-	if (!varatutHuoneet[huoneNum-1]) {
-		varatutHuoneet[huoneNum-1] = true;
+	if (!huoneita[huoneNum-1]) {
+		huoneita[huoneNum-1] = true;
 		cout << "Anna oiden maara: ";
 		cin >> yoMaara;
 		
-	
 		cout << "Hinta on " << hinta * yoMaara << " euroa.\n";
 		cout << "Huone varattu!\n";
 		
-
 	}
 	else {
 		cout << "Huone on jo varattu\n";
 	}
 }
+	int roomChecker(vector<bool> huoneita){
 
-const int randomInt() {
-	{
-		return rand() % 10 + 1;
+		//iterate thorugh vector and check if any rooms are free
+		for (int i = 0; i < huoneita.size(); i++) {
+			if (huoneita[i] == false) {
+				return 1;
+			}
+		}
+		return 0;
+
+		// for (auto & huone : huoneita){
+		// 	if (huoneita[huone] == false) 
+		// 		return 1;
+		// }
+		// return 0;
+
 	}
-}
 
 int main() {
+	int huoneMaara = rand() % 40 + 30;
+	cout << "Tervetuloa hotelliin!\n";
+	cout << "Huoneita on " << huoneMaara << endl;
 
-	const int hRooms = 100;
+	vector<bool> huoneet(huoneMaara,false);
 	int huoneNumero;
-
-	bool varatut[hRooms] = {}, allTrue;
-
+	
 	while (true) {
-		allTrue = (end(varatut)) == find(begin(varatut), end(varatut), false);
-		if (allTrue) {
+		if (roomChecker(huoneet) == 0){ // jos kaikki huoneet on varattu
 			cout << "Kaikki huoneet varattu!\n";
 			cout << "Hei hei\n";
-			return 0;
+			return 0;	// lopetetaan ohjelma
 		}
+
 		cout << "Valitse huoneen numero: ";
 		cin >> huoneNumero;
 		
 
-		
-		
-		
 		while (cin.fail()) {
 			cout << "Ei ole numero\n";
 			cin.clear();
@@ -65,8 +73,8 @@ int main() {
 				break;
 		}
 		
-		if (huoneNumero > 0 && huoneNumero <= hRooms) {
-			varaaHuone(huoneNumero,varatut);
+		if (huoneNumero > 0 && huoneNumero <= huoneMaara) {
+			varaaHuone(huoneNumero,huoneet);
 
 		}
 		
