@@ -15,52 +15,48 @@ void varaaJarjestelma(){
 
 int roomChecker(vector<bool> huoneita){
 
-	//iterate thorugh vector and check if any rooms are free
+	//rullaa läpi ja katsoo onko huoneita vapaana
 	for (int i = 0; i <= huoneita.size(); i++) { 
 		if (huoneita[i] == false) {
 			return 1;
 		}
 	}
 	return 0;
-	}
+}
 
 
-	void varaaItse(vector<bool> huoneVektori) {
-		int huoneNumero;
-		int hinta = rand() % 20 + 80, yoMaara;
+void varaaItse(vector<bool> huoneVektori) {
+	int huoneNumero;
+	int hinta = rand() % 20 + 80, yoMaara;
+	cout << "Valitse huoneen numero: ";
+	cin >> huoneNumero;
+	
+	while (cin.fail()) { //kasitellaan virheellinen syote
+		cout << "Ei ole numero\n";
+		cin.clear();
+		cin.ignore(256, '\n');
+		
 		cout << "Valitse huoneen numero: ";
 		cin >> huoneNumero;
 		
-		while (cin.fail()) { //kasitellaan virheellinen syote
-			cout << "Ei ole numero\n";
-			cin.clear();
-			cin.ignore(256, '\n');
-			
-			cout << "Valitse huoneen numero: ";
-			cin >> huoneNumero;
-			
-			if (!cin.fail())
-				break;
-		}
-
-
-
-
-
-		if (!huoneVektori[huoneNumero-1]) {
-			huoneVektori[huoneNumero-1] = true;
-			cout << "Anna oiden maara: ";
-			cin >> yoMaara;
-			
-			cout << "Hinta on " << hinta * yoMaara << " euroa.\n";
-			cout << "Huone varattu!\n";
-			
-		}
-		else {
-			cout << "Huone on jo varattu\n";
-		}
-
+		if (!cin.fail())
+			break;
 	}
+
+	if (!huoneVektori[huoneNumero-1]) {
+		huoneVektori[huoneNumero-1] = true;
+		cout << "Anna oiden maara: ";
+		cin >> yoMaara;
+		
+		cout << "Hinta on " << hinta * yoMaara << " euroa.\n";
+		cout << "Huone varattu!\n";
+		
+	}
+	else {
+		cout << "Huone on jo varattu\n";
+	}
+
+}
 
 int main() {
 	int huoneMaara = rand() % 40 + 30, toiminto;
