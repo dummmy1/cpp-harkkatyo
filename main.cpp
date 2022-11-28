@@ -4,19 +4,29 @@
 #include <map>
 #include <vector>
 #include <iterator>
+#include<cstdlib>
 
 
 using namespace std;
 
-void varaaJarjestelma(){
-	cout << "Varaa jarjestelma" << endl;
+void varaaJarjestelma(vector<bool>& huoneVektori, int yonHinta){
+	int varausYot, huoneenNumero = rand() % huoneVektori.size(), jarjestelmaVaraus = rand() % huoneVektori.size();
+	cout << "Jarjestelma varaa sinulle huoneen!" << endl;
+	cout << "Kuinka monta yota haluat varata?\n";
+	cin >> varausYot;
+	if (huoneVektori[huoneenNumero] == false){
+		cout << "Huoneen numero: " << huoneenNumero << endl;
+		cout << "Hinta: " << yonHinta * varausYot << endl;
+		huoneVektori[huoneenNumero] = true;
+	}
+
 }
 
 
-int roomChecker(vector<bool> huoneita){
+int roomChecker(vector<bool>& huoneita){
 
 	//rullaa läpi ja katsoo onko huoneita vapaana
-	for (int i = 0; i <= huoneita.size(); i++) { 
+	for (int i = 0; i < huoneita.size(); i++) { 
 		if (huoneita[i] == false) {
 			return 1;
 		}
@@ -25,44 +35,83 @@ int roomChecker(vector<bool> huoneita){
 }
 
 
-void varaaItse(vector<bool> huoneVektori) {
+void varaaItse(vector<bool>& huoneVektori, int yoHinta) {
 	int huoneNumero;
-	int hinta = rand() % 20 + 80, yoMaara;
-	cout << "Valitse huoneen numero: ";
-	cin >> huoneNumero;
-	
-	while (cin.fail()) { //kasitellaan virheellinen syote
-		cout << "Ei ole numero\n";
-		cin.clear();
-		cin.ignore(256, '\n');
-		
-		cout << "Valitse huoneen numero: ";
+	int yoMaara;
+
+	while (true){
+		cout << "Valitse huoneen numero: (0 menee takaisin paavalikkoon)\n";
 		cin >> huoneNumero;
 		
-		if (!cin.fail())
-			break;
-	}
+		while (cin.fail()) { //kasitellaan virheellinen syote
+			cout << "Ei ole numero\n";
+			cin.clear();
+			cin.ignore(256, '\n');
+			
+			cout << "Valitse huoneen numero: ";
+			cin >> huoneNumero;
+			
+			if (!cin.fail()) {
+				break;
+			}
+			else {
+				cout << "Ei ole numero 1-"<< huoneVektori.size() << endl;
+			}
+		}
+		if(huoneNumero > 0 && huoneNumero <= huoneVektori.size()){
+			if(!huoneVektori[huoneNumero-1]) {
+				
+				cout << "Anna oiden maara: ";
+				cin >> yoMaara;
+				
 
-	if (!huoneVektori[huoneNumero-1]) {
-		huoneVektori[huoneNumero-1] = true;
-		cout << "Anna oiden maara: ";
-		cin >> yoMaara;
-		
-		cout << "Hinta on " << hinta * yoMaara << " euroa.\n";
-		cout << "Huone varattu!\n";
-		
-	}
-	else {
-		cout << "Huone on jo varattu\n";
+				while (cin.fail()) { //kasitellaan virheellinen syote
+					cout << "Ei ole numero\n";
+					cin.clear();
+					cin.ignore(256, '\n');
+					
+					cout << "Anna oiden maara: ";
+					cin >> yoMaara;
+					
+					if (!cin.fail()) {
+						break;
+					}
+				}
+
+
+				cout << "Hinta on " << yoHinta * yoMaara << " euroa.\n";
+				cout << "Huone varattu!\n";
+				huoneVektori[huoneNumero-1] = true;
+				break;
+			}
+			else {
+				cout << "Huone on jo varattu!" << endl;
+			}
+		}
+
+		else if (huoneNumero == 0) {
+			cout << "Palataan valikkoon.\n";
+			break;
+		}
+		else if (huoneNumero > huoneVektori.size()){
+			cout << "Huonetta ei ole olemassa.\n";
+		}
+
 	}
 
 }
 
 int main() {
-	int huoneMaara = rand() % 40 + 30, toiminto;
+
+	// Koneen aika tollasena auttavana randomi generointi hommana
+    srand((unsigned) time(NULL)); 
+
+    int huoneMaara = rand() % 40 + 30, hinta = rand() % 20 + 80, toiminto;
+
 	cout << "Tervetuloa hotelliin!\n";
 	cout << "Huoneita on " << huoneMaara << endl;
 
+	// Vektori jossa huoneet
 	vector<bool> huoneet(huoneMaara,false);
 	cout << huoneet.size() << endl;
 
@@ -73,7 +122,7 @@ int main() {
 			cout << "Tervetuloa uudestaan!\n";
 			return 0;	// lopetetaan ohjelma
 		}
-		cout << "Valitse toiminto:\n1. Valitse itse nummero\n2. Järjestelmä varaa vapaan huoneen\n3. Lopeta\n";
+		cout << "Valitse toiminto:\n1. Valitse itse nummero\n2. Jarjestelma varaa vapaan huoneen\n3. Lopeta\n";
 		cin >> toiminto;
 
 		
@@ -82,7 +131,7 @@ int main() {
 			cout << "Ei ole numero 1-3\n";
 			cin.clear();
 			cin.ignore(256, '\n');	
-			cout << "Valitse toiminto:\n1. Valitse itse nummero\n2. Järjestelmä varaa vapaan huoneen\n3. Lopeta\n";
+			cout << "Valitse toiminto:\n1. Valitse itse nummero\n2. Jarjestelma varaa vapaan huoneen\n3. Lopeta\n";
 			cin >> toiminto;
 			if (!cin.fail() && toiminto > 0 && toiminto < 4){
 				break;
@@ -91,10 +140,10 @@ int main() {
 		}
 		switch (toiminto) { // switch case mitä tehdaan valitun numeron mukaan
 		case 1:
-			varaaItse(huoneet);
+			varaaItse(huoneet, hinta);
 			break;
 		case 2:
-			varaaJarjestelma();
+			varaaJarjestelma(huoneet, hinta);
 			break;
 		case 3:
 			cout << "Tervetuloa uudestaan!\n";
