@@ -6,4 +6,4 @@
 
 - [ ]  Ohjeet työn tekemiseen:
 
-[Ohjeet](dummmy1.github.io)
+[Ohjeet](https://dummmy1.github.io/)
