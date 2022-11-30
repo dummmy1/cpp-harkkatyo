@@ -6,7 +6,8 @@
 
 Ohjeet työn tekemiseen:
 
-'''Harjoitustyö
+'''cpp
+Harjoitustyö
 Harjoitustyön tarkoitus
 
 Ohjelmoinnin perusteiden harjoitustyön tarkoituksena on koota yhteen kurssilla opitut asiat toimivalla ja hyvin suunnitellulla C++ -ohjelmalla.
