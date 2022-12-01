@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 #include <iterator>
-#include<cstdlib>
+#include <cstdlib>
 
 
 using namespace std;
