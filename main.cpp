@@ -18,7 +18,7 @@ using namespace std;
 
 void ostoskarry(map<int, string>& varausLista){ //printtaa tehdyt varaukset(numero ja nimi)
 	map<int, string>::iterator itr;
-    cout << "\nVaraukset : \n";
+    cout << "\nVaraukset: \n";
     cout << "\tVarausnumero\tNimi\n";
     for (itr = varausLista.begin(); itr != varausLista.end(); ++itr) {
         cout << '\t' << itr->first << '\t' << "\t" << itr->second
@@ -90,7 +90,7 @@ void varaaJarjestelma(vector<bool>& huoneVektori, int yonHinta, map<int, string>
 	while(true){
 		
 
-		int varausYot, aleRand = rand() % 2 + 1, huoneenNumero, huoneKoko;
+		int varausYot, huoneenNumero, huoneKoko;
 
 
 

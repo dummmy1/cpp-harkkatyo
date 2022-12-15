@@ -1,0 +1,34 @@
+Vähän tyhmästi toteutettu, ei luettu tarkkaan tehtävänantoa, eikä käytetty tarpeeksi aikaa ja siitä syystä ohjelma on vajaa.
+
+Ekaks koitin tehä jollain arraylla, mutta se tyssäs siihen että ei voi olla dynaamisen kokosta arrayta, joten vaihdoin vectoriin.
+Ei ollut yhtään mielessä että pitäisi joku ostoskori tehdä tai vaihtaa vaikka että kuinka monta yötä haluaa varata, vector structeja oisi ollut siihen käyttöön varmasti hyvä idea.
+
+Ohjelma toimii siten, että ensiksi tehdään bool vectori jonka koko on se kuinka monta huonetta on ja kaikki on ensiksi false, myös tyhjä map<int, string>
+sitten on while loop joka kysyy mitä käyttäjä haluaa tehdä, ja sen mukaan switch:case ohjaa oikeaan aliohjelmaan. Voit joko itse varata huoneen, tai 
+järjestelmä voi varata sinulle vapaan huoneen, voit myös tarkastella ketkä on varannut huoneen.
+
+
+Varaa itse: 
+
+Aliohjelma ottaa bool vectorin, hinnan yhdelle yölle ja varaus mapin. Eka puoli huoneista on 1 hengen huoneita, loput kahden hengen. Käyttäjä valitsee numeron ja ohjelma tarkastaa onko 
+käyttäjänNumero-1 vektorissa true/false ja joko varaa huoneen jos false ja vaihtaa sen true, tai sanoo että huone on jo varattu jos true. Ohjelma kysyy millekkä nimelle varataan, 
+arpoo tilausnumeron, ja laittaa ne tyhjään map
+Tämän jälkeen ohjelma menee takaisin alku while-looppiin.
+
+
+Järjestelmä varaa:
+Tässä kysytään haluatko yhden vai kahden hengen huoneen. Arpoo numeron joko 1->vektori/2 tai vektori/2->vektori, jos on jo varattu niin arpoo uusiksi. 
+Ohjelma kysyy millekkä nimelle varataan, arpoo tilausnumeron, ja laittaa ne tyhjään map
+
+
+"Ostoskärry":
+
+ns ostoskärry lukee ja näyttää mitä mapin key-pair = tilausnumero-nimi
+
+
+
+Arvosana:
+
+En käyttänyt tarpeeksi aikaa tämän tehtävän tekemiseen, haluaisin tehtäväni arvosanaksi 4 sillä kuten sanoin, ohjelma on aika vajaa ja varmasti ei mikään optimaalinen.
+Hyödynnän kuitenkin ehkä jotakuinkin tehokkaasti aliohjelmia jotta ei tulisi itsensä toistoa kauheammin, ja input tarkistus on aika hyvähkö mielestäni, vaikka
+niitä on 2 eri ne ois varmaan saanu samaan aliohjelmaan helposti
