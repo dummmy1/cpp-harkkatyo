@@ -16,7 +16,7 @@
 
 using namespace std;
 
-void ostoskarry(map<int, string>& varausLista){
+void ostoskarry(map<int, string>& varausLista){ //printtaa tehdyt varaukset(numero ja nimi)
 	map<int, string>::iterator itr;
     cout << "\nVaraukset : \n";
     cout << "\tVarausnumero\tNimi\n";
@@ -81,10 +81,11 @@ void cinClearSize(int& annettu, int size, int alkuNum){ //Funktio joka ottaa syo
 
 void varaaJarjestelma(vector<bool>& huoneVektori, int yonHinta, map<int, string>& varausMap){ // Funktio jossa jarjestelma varaa sinulle huoneen vapaista olevista huoneista
 
-	cout << "Jarjestelma varaa sinulle huoneen!" << endl;
-	double alennus = alennusRand(); //arpoo luvun 1-max huoneet
-	int tilausNumero = rand() %  99999 + 10000;
 
+	int tilausNumero = rand() %  99999 + 10000;
+	cin.ignore();
+	cout << "Jarjestelma varaa sinulle huoneen!\n";
+	cout << "Yhden vai kahden hengen huone? (1=Yhden hengen, 2=Kahden hengen, 0 palaa takaisin menuunn\n";
 
 	while(true){
 		
@@ -92,7 +93,7 @@ void varaaJarjestelma(vector<bool>& huoneVektori, int yonHinta, map<int, string>
 		int varausYot, aleRand = rand() % 2 + 1, huoneenNumero, huoneKoko;
 
 
-		cout << "Yhden vai kahden hengen huone? (1=Yhden hengen, 2=Kahden hengen, 0 palaa takaisin menuun";
+
 		cinClearSize(huoneKoko, 2, 0);
 
 
@@ -117,18 +118,18 @@ void varaaJarjestelma(vector<bool>& huoneVektori, int yonHinta, map<int, string>
 			}
 			//cout << "\nHuoneen numero: " << huoneenNumero << "\n";
 			huoneVektori[huoneenNumero-1] = true;
-			cout << "\nHuone numero " << huoneenNumero <<" varattu!\nMille nimelle varataan?\n";
+			cout << "Mille nimelle varataan?\n";
 			cin.ignore();
 			getline(cin, nimi);
 
 			if (huoneenNumero >= (huoneVektori.size()/2)){
-				cout << "Hinta: " << ((yonHinta+50)*alennus) * varausYot << "\n";	
+				cout << "Hinta: " << ((yonHinta+50)*alennusRand()) * varausYot << "\n";	
 			}
-			else cout << "Hinta: " << (yonHinta * alennus) * varausYot << "\n";
+			else cout << "Hinta: " << (yonHinta * alennusRand()) * varausYot << "\n";
 			
 			varausMap.insert(pair<int, string>(tilausNumero, nimi));
 
-
+			cout << "\nHuone numero " << huoneenNumero <<" varattu!\n";
 			break;
 		}
 	}
@@ -147,16 +148,18 @@ int roomChecker(vector<bool>& huoneita){
 
 
 void varaaItse(vector<bool>& huoneVektori, int yoHinta, map<int, string>& varausMap) {
-	int huoneNumero, aleRand = rand() % 2 + 1, yoMaara;
-	double alennus = alennusRand();
+	int huoneNumero, yoMaara, tilausNumero = rand() %  99999 + 10000;
+	string nimi;
 	
-
 	while (true){
-		cout << "\nValitse huoneen numero: (Yhden henkilön huoneet numerosta 1-" << huoneVektori.size()/2 << ", loput ovat kahden henkilon huoneita " << "0 menee takaisin paavalikkoon)\n";
+		cout << "\nValitse huoneen numero: (Yhden henkilon huoneet numerosta 1-" << huoneVektori.size()/2 << ", " << (huoneVektori.size()/2)+1 << "-" << huoneVektori.size() << " ovat kahden henkilon huoneita." << "0 menee takaisin paavalikkoon)\n";
 		
 		cinClearSize(huoneNumero, huoneVektori.size(), 1);//ottaa input ja tarkistaa onko se numero 1-annetun luvun välillä
 
-
+		if (huoneNumero == 0) {
+			cout << "Palataan valikkoon.\n";
+			break;
+		}
 
 		if(!huoneVektori[huoneNumero-1]) {
 			
@@ -167,22 +170,25 @@ void varaaItse(vector<bool>& huoneVektori, int yoHinta, map<int, string>& varaus
 				break;
 
 			huoneVektori[huoneNumero-1] = true;
-			cout << "\nHuone "<< huoneNumero <<" varattu!";
+			cout << "\nMille nimelle varataan?\n";
+			cin.ignore();
+			getline(cin, nimi);
 			if (huoneNumero-1 >= (huoneVektori.size()/2)){
-				cout << "Hinta: " << yoHinta+50 * yoMaara << "\n";	
+				cout << "Hinta: " << ((yoHinta+50)*alennusRand()) * yoMaara << "\n";	
 			}
-			else cout << "Hinta: " << yoHinta * yoMaara << "\n";
+			else cout << "Hinta: " <<(yoHinta * alennusRand()) * yoMaara << "\n";
+
+			cout << "\nHuone numero " << huoneNumero <<" varattu!";
+			varausMap.insert(pair<int, string>(tilausNumero, nimi));
 
 			break;
 		}
+
 		else {
 			cout << "\nHuone "<< huoneNumero << " on jo varattu!" << endl;
 		}
 
-		if (huoneNumero == 0) {
-			cout << "Palataan valikkoon.\n";
-			break;
-		}
+		
 	}
 }
 
